@@ -1,21 +1,21 @@
-package team.unnamed.uversions.internal;
-
-import team.unnamed.uversions.MinecraftVersion;
+package team.unnamed.modulizer.universal.internal;
 
 import java.lang.reflect.Constructor;
 import java.util.HashMap;
 import java.util.Map;
 import java.util.Optional;
 
-public final class Key<T> {
+public final class Key<T, E extends Enum<E>> {
 
     private final Class<? extends T> implementation;
     private final Map<String, Constructor<T>> constructors;
 
-    private MinecraftVersion version;
+    private String identifier;
+    private Enum<E> enumType;
 
     public Key(Class<? extends T> implementation) {
         this.implementation = implementation;
+
         constructors = new HashMap<>();
     }
 
@@ -27,12 +27,20 @@ public final class Key<T> {
         return implementation;
     }
 
-    public MinecraftVersion getVersion() {
-        return version;
+    public String getIdentifier() {
+        return identifier;
     }
 
-    void setVersion(MinecraftVersion version) {
-        this.version = version;
+    public void setIdentifier(String identifier) {
+        this.identifier = identifier;
+    }
+
+    public Enum<E> getEnumType() {
+        return enumType;
+    }
+
+    void setEnumType(Enum<E> enumType) {
+        this.enumType = enumType;
     }
 
     public Optional<Constructor<T>> getConstructor(String identifier) {

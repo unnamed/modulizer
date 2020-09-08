@@ -1,4 +1,4 @@
-package team.unnamed.uversions.type;
+package team.unnamed.modulizer.universal.type;
 
 import java.lang.reflect.*;
 import java.util.Arrays;

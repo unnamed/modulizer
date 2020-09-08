@@ -1,20 +1,19 @@
 package team.unnamed.uversions.example;
 
-import team.unnamed.uversions.MinecraftVersion;
-import team.unnamed.uversions.bind.InternalVersionBinder;
-import team.unnamed.uversions.internal.SimpleVersionBinder;
+import team.unnamed.modulizer.universal.bind.InternalModuleBinder;
+import team.unnamed.modulizer.universal.internal.SimpleModuleBinder;
 
 public class Test {
 
     public static void main(String[] args) {
-        InternalVersionBinder binder = new SimpleVersionBinder();
+        InternalModuleBinder binder = new SimpleModuleBinder();
 
         binder.installModule(new TestModule());
 
         System.out.println(
                 binder
-                        .getProvider(Abstraction.class)
-                        .getInstance(MinecraftVersion.v1_8_R1, "simple-constructor", "testing", 2)
+                        .getProvider(Abstraction.class, MinecraftVersion.v1_8_R1)
+                        .getInstance(MinecraftVersion.v1_8_R1, null,"simple-constructor", "testing", 2)
                         .getName()
         );
     }

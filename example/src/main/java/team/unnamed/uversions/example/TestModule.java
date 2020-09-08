@@ -1,19 +1,20 @@
 package team.unnamed.uversions.example;
 
-import team.unnamed.uversions.MinecraftVersion;
-import team.unnamed.uversions.VersionModule;
-import team.unnamed.uversions.bind.VersionBinder;
 
-public class TestModule implements VersionModule {
+import team.unnamed.modulizer.universal.SimpleModule;
+import team.unnamed.modulizer.universal.bind.ModuleBinder;
+
+public class TestModule implements SimpleModule {
 
     @Override
-    public void configure(VersionBinder binder) {
+    public void configure(ModuleBinder binder) {
         binder
-                .bind(Abstraction.class)
+                .bind(Abstraction.class, MinecraftVersion.class)
                 .to(Implementation.class)
                 .withDefaultConstructor()
                 .withConstructor("simple-constructor", String.class, int.class)
-                .withVersion(MinecraftVersion.v1_8_R1);
+                .defaultIdentifier()
+                .withType(MinecraftVersion.v1_8_R1);
     }
 
 }

@@ -5,7 +5,7 @@
     <modelVersion>4.0.0</modelVersion>
 
     <groupId>team.unnamed.uversions</groupId>
-    <artifactId>uversions-parent</artifactId>
+    <artifactId>modulizer-parent</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
     <build>
@@ -21,8 +21,9 @@
         </plugins>
     </build>
     <modules>
-        <module>core</module>
         <module>example</module>
+        <module>bukkit</module>
+        <module>universal</module>
     </modules>
 
     <distributionManagement>

@@ -1,4 +1,4 @@
-package team.unnamed.uversions;
+package team.unnamed.uversions.example;
 
 public enum MinecraftVersion {
 
