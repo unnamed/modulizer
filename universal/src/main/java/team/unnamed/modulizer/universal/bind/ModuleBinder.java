@@ -11,7 +11,7 @@ public interface ModuleBinder<E extends Enum<E>> {
         return bind(TypeReference.of(abstractClass));
     }
 
-    default void installModule(SimpleModule module) {
+    default void installModule(SimpleModule<E> module) {
         module.configure(this);
     }
 

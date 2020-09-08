@@ -8,12 +8,12 @@ import java.lang.reflect.Constructor;
 
 public class SimpleModuleBinderBuilder<T, E extends Enum<E>> implements ModuleBinderBuilder.Partial<T, E> {
 
-    private final InternalModuleBinder binder;
+    private final InternalModuleBinder<E> binder;
 
     private final TypeReference<T> abstractionType;
     private Key<T, E> key;
 
-    public SimpleModuleBinderBuilder(InternalModuleBinder binder, TypeReference<T> abstractionType) {
+    public SimpleModuleBinderBuilder(InternalModuleBinder<E> binder, TypeReference<T> abstractionType) {
         this.binder = binder;
         this.abstractionType = abstractionType;
     }
