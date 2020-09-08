@@ -3,12 +3,12 @@ package team.unnamed.modulizer.universal.bind;
 import team.unnamed.modulizer.universal.SimpleModule;
 import team.unnamed.modulizer.universal.type.TypeReference;
 
-public interface ModuleBinder {
+public interface ModuleBinder<E extends Enum<E>> {
 
-    <T, E extends Enum<E>> ModuleBinderBuilder.Linkable<T, E> bind(TypeReference<T> abstractionType, Class<E> enumType);
+    <T> ModuleBinderBuilder.Linkable<T, E> bind(TypeReference<T> abstractionType);
 
-    default <T, E extends Enum<E>> ModuleBinderBuilder.Linkable<T, E> bind(Class<T> abstractClass, Class<E> enumType) {
-        return bind(TypeReference.of(abstractClass), enumType);
+    default <T> ModuleBinderBuilder.Linkable<T, E> bind(Class<T> abstractClass) {
+        return bind(TypeReference.of(abstractClass));
     }
 
     default void installModule(SimpleModule module) {

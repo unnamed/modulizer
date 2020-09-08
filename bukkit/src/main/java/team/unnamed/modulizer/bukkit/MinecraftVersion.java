@@ -1,4 +1,4 @@
-package team.unnamed.uversions.example;
+package team.unnamed.modulizer.bukkit;
 
 public enum MinecraftVersion {
 

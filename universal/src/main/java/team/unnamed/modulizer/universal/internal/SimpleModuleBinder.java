@@ -9,7 +9,7 @@ import team.unnamed.modulizer.universal.type.TypeReference;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SimpleModuleBinder implements InternalModuleBinder {
+public class SimpleModuleBinder<E extends Enum<E>> implements InternalModuleBinder<E> {
 
     private final Map<TypeReference<?>, ModuleProvider<?, ? extends Enum<?>>> providers;
 
@@ -18,7 +18,7 @@ public class SimpleModuleBinder implements InternalModuleBinder {
     }
 
     @Override
-    public <T, E extends Enum<E>> void set(TypeReference<T> abstractionType,
+    public <T> void set(TypeReference<T> abstractionType,
                                            Key<T, E> key) {
 
         ModuleProvider<T, E> versionProvider = new SimpleModuleProvider<>(abstractionType);
@@ -29,29 +29,19 @@ public class SimpleModuleBinder implements InternalModuleBinder {
 
     @SuppressWarnings("unchecked")
     @Override
-    public <T, E extends Enum<E>> ModuleProvider<T, E> getProvider(TypeReference<T> abstractType,
-                                                                   String implementationIdentifier,
-                                                                   Enum<E> enumType) {
-
+    public <T> ModuleProvider<T, E> getProvider(TypeReference<T> abstractType) {
         ModuleProvider<T, E> moduleProvider = (ModuleProvider<T, E>) providers.get(abstractType);
 
         if (moduleProvider == null) {
-            throw new IllegalArgumentException("Not module founded to " + abstractType + " with type " + enumType + " and the identifier " + implementationIdentifier);
+            throw new IllegalArgumentException("Not module founded to " + abstractType + ".");
         }
 
-        Key<T, E> key = moduleProvider.getKey(implementationIdentifier, enumType);
 
-        if (key.getIdentifier().equals(implementationIdentifier)) {
-            return moduleProvider;
-        }
-
-        return null;
+        return moduleProvider;
     }
 
     @Override
-    public <T, E extends Enum<E>> ModuleBinderBuilder.Linkable<T, E> bind(TypeReference<T> abstractionType,
-                                                                          Class<E> enumType) {
-
+    public <T> ModuleBinderBuilder.Linkable<T, E> bind(TypeReference<T> abstractionType) {
         return new SimpleModuleBinderBuilder<>(this, abstractionType);
     }
 
