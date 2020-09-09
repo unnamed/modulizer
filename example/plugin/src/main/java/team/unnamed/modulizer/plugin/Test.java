@@ -8,7 +8,7 @@ import team.unnamed.modulizer.universal.internal.repository.ModuleRepository;
 public class Test {
 
     public static void main(String[] args) {
-        MinecraftVersion minecraftVersion = MinecraftVersion.v1_9_R2;
+        MinecraftVersion minecraftVersion = MinecraftVersion.v1_8_R3;
 
         VersionModuleBinder binder = new VersionModuleBinder();
 
@@ -19,9 +19,11 @@ public class Test {
                 .setPackageName("team.unnamed.modulizer.%identifier%")
                 .build();
 
-        versionModuleRepository.getProvider(TitleMessenger.class)
-                .getInstance(minecraftVersion, null, null)
-                .sendTitle("pixel", "asdasd", 2, 2, 2);
+        TitleMessenger messenger = versionModuleRepository
+                .getProvider(TitleMessenger.class)
+                .getInstance(minecraftVersion, null, null);
+
+        messenger.sendTitle("pixel", "asdasd", 2, 2, 2);
     }
 
 }

@@ -30,6 +30,7 @@
             <groupId>team.unnamed.modulizer</groupId>
             <artifactId>modulizer-universal</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>compile</scope>
         </dependency>
         <dependency>
             <groupId>org.spigotmc</groupId>

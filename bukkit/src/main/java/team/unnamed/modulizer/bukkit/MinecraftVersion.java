@@ -1,5 +1,7 @@
 package team.unnamed.modulizer.bukkit;
 
+import org.bukkit.Bukkit;
+
 public enum MinecraftVersion {
 
     v1_8_R1,
@@ -15,5 +17,13 @@ public enum MinecraftVersion {
     v1_14_R1,
     v1_15_R1,
     v1_16_R1
+
+    ;
+
+    public static MinecraftVersion getVersion() {
+        return MinecraftVersion.valueOf(
+                Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
+        );
+    }
 
 }

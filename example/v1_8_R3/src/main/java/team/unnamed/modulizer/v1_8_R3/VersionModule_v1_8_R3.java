@@ -9,8 +9,7 @@ public class VersionModule_v1_8_R3 implements VersionModule {
 
     @Override
     public void configure(ModuleBinder<MinecraftVersion> binder) {
-        binder
-                .bind(TitleMessenger.class)
+        binder.bind(TitleMessenger.class)
                 .to(TitleMessenger1_8_R3.class)
                 .withDefaultConstructor()
                 .defaultIdentifier()
