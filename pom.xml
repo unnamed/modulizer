@@ -8,6 +8,7 @@
     <artifactId>modulizer-parent</artifactId>
     <packaging>pom</packaging>
     <version>0.0.1-SNAPSHOT</version>
+
     <build>
         <plugins>
             <plugin>
@@ -20,6 +21,7 @@
             </plugin>
         </plugins>
     </build>
+
     <modules>
         <module>example</module>
         <module>bukkit</module>
@@ -29,6 +31,7 @@
     <distributionManagement>
         <repository>
             <id>unnamed-releases</id>
+            <url>https://repo.unnamed.team/repository/unnamed-releases/</url>
         </repository>
     </distributionManagement>
 
@@ -38,14 +41,5 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
-
-    <dependencies>
-        <dependency>
-            <groupId>org.spigotmc</groupId>
-            <artifactId>spigot-api</artifactId>
-            <version>1.8.8-R0.1-SNAPSHOT</version>
-            <scope>provided</scope>
-        </dependency>
-    </dependencies>
 
 </project>
