@@ -4,16 +4,18 @@ import team.unnamed.modulizer.universal.bind.ModuleBinder;
 
 public final class ModuleRepositoryBuilder<E extends Enum<E>> {
 
-    private ModuleBinder<E> binder;
-    private ModuleFormat moduleFormat = new SimpleModuleFormat("%package%", "%class_name%", "%identifier%");
+    private final ModuleBinder<E> binder;
 
+    private ModuleFormat moduleFormat = new SimpleModuleFormat("%package%", "%class_name%", "%identifier%");
     private Enum<E> currentType;
 
-    private String modulePath = "%package%%identifier%%class_name%%identifier%";
+    private String modulePath = "%package%.%class_name%";
     private String packageName;
     private String className;
 
-    ModuleRepositoryBuilder() { }
+    ModuleRepositoryBuilder(ModuleBinder<E> binder) {
+        this.binder = binder;
+    }
 
     public ModuleRepositoryBuilder<E> setModuleFormat(ModuleFormat moduleFormat) {
         this.moduleFormat = moduleFormat;
@@ -45,14 +47,12 @@ public final class ModuleRepositoryBuilder<E extends Enum<E>> {
         return this;
     }
 
-    public ModuleRepositoryBuilder<E> setBinder(ModuleBinder<E> binder) {
-        this.binder = binder;
-
-        return this;
-    }
-
     public ModuleRepository<E> build() {
-        return new SimpleModuleRepository<>(binder, modulePath, moduleFormat, currentType, className, packageName);
+        ModuleRepository<E> moduleRepository = new SimpleModuleRepository<>(binder, modulePath, moduleFormat, currentType, className, packageName);
+
+        moduleRepository.getModule();
+
+        return moduleRepository;
     }
 
 }
