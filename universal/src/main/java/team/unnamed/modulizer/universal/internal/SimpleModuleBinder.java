@@ -2,6 +2,7 @@ package team.unnamed.modulizer.universal.internal;
 
 import team.unnamed.modulizer.universal.bind.InternalModuleBinder;
 import team.unnamed.modulizer.universal.bind.ModuleBinderBuilder;
+import team.unnamed.modulizer.universal.exception.ModuleLoadException;
 import team.unnamed.modulizer.universal.provider.ModuleProvider;
 import team.unnamed.modulizer.universal.provider.SimpleModuleProvider;
 import team.unnamed.modulizer.universal.type.TypeReference;
@@ -18,9 +19,7 @@ public class SimpleModuleBinder<E extends Enum<E>> implements InternalModuleBind
     }
 
     @Override
-    public <T> void set(TypeReference<T> abstractionType,
-                                           Key<T, E> key) {
-
+    public <T> void set(TypeReference<T> abstractionType, Key<T, E> key) {
         ModuleProvider<T, E> versionProvider = new SimpleModuleProvider<>(abstractionType);
 
         versionProvider.registerVersion(key);
@@ -33,9 +32,8 @@ public class SimpleModuleBinder<E extends Enum<E>> implements InternalModuleBind
         ModuleProvider<T, E> moduleProvider = (ModuleProvider<T, E>) providers.get(abstractType);
 
         if (moduleProvider == null) {
-            throw new IllegalArgumentException("Not module founded to " + abstractType + ".");
+            throw new ModuleLoadException("Couldn't find any module for " + abstractType + ".");
         }
-
 
         return moduleProvider;
     }

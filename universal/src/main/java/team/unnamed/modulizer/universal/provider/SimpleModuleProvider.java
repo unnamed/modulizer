@@ -30,7 +30,9 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
         Key<T, E> implementation = implementations.get(enumType);
 
         if (implementation == null) {
-            throw new IllegalArgumentException("An error has occurred getting the key with the identifier " + implementationIdentifier + " with type " + enumType);
+            throw new IllegalArgumentException(
+                    "An error has occurred while getting a key for " + abstractionType + " with the identifier " + implementationIdentifier + " with type " + enumType + "."
+            );
         }
 
         if (implementationIdentifier == null) {
@@ -38,7 +40,9 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
         }
 
         if (!implementation.getIdentifier().equals(implementationIdentifier)) {
-            throw new IllegalArgumentException("An error has occurred searching an key to "  + abstractionType + " with the identifier " + implementationIdentifier);
+            throw new IllegalArgumentException(
+                    "An error has occurred while searching a key for "  + abstractionType + " with the identifier " + implementationIdentifier + "."
+            );
         }
 
         return implementation;
@@ -53,13 +57,15 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
 
             if (!constructorOptional.isPresent()) {
                 throw new IllegalArgumentException(
-                        "An error has occurred while getting the constructor " + constructorIdentifier + " of " + abstractionType.getRawType()
+                        "An error has occurred while getting the constructor " + constructorIdentifier + " of " + abstractionType.getRawType() + "."
                 );
             }
 
             return constructorOptional.get().newInstance(values);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
-            throw new RuntimeException("An error has occurred while initializing an instance of " + abstractionType.getRawType());
+            throw new RuntimeException(
+                    "An error has occurred while initializing an instance of " + abstractionType.getRawType() + ".", e
+            );
         }
     }
 
