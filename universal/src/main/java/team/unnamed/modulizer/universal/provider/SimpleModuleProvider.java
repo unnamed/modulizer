@@ -1,5 +1,7 @@
 package team.unnamed.modulizer.universal.provider;
 
+
+import team.unnamed.modulizer.universal.bind.ModuleBinderBuilder;
 import team.unnamed.modulizer.universal.internal.Key;
 import team.unnamed.modulizer.universal.type.TypeReference;
 
@@ -51,6 +53,10 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
     @Override
     public T getInstance(E enumType, String implementationIdentifier, String constructorIdentifier, Object... values) {
         Key<T, E> implementation = getKey(implementationIdentifier, enumType);
+
+        if (constructorIdentifier == null) {
+            constructorIdentifier = ModuleBinderBuilder.DEFAULT_NAME;
+        }
 
         try {
             Optional<Constructor<T>> constructorOptional = implementation.getConstructor(constructorIdentifier);

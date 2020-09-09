@@ -1,6 +1,5 @@
 package team.unnamed.modulizer.universal.internal;
 
-import team.unnamed.modulizer.universal.bind.InternalModuleBinder;
 import team.unnamed.modulizer.universal.bind.ModuleBinderBuilder;
 import team.unnamed.modulizer.universal.exception.ModuleLoadException;
 import team.unnamed.modulizer.universal.provider.ModuleProvider;

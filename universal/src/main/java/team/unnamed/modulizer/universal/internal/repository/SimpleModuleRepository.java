@@ -1,15 +1,19 @@
 package team.unnamed.modulizer.universal.internal.repository;
 
 import team.unnamed.modulizer.universal.SimpleModule;
+import team.unnamed.modulizer.universal.internal.InternalModuleBinder;
 import team.unnamed.modulizer.universal.bind.ModuleBinder;
 import team.unnamed.modulizer.universal.loader.ModuleLoader;
 import team.unnamed.modulizer.universal.loader.SimpleModuleLoader;
+import team.unnamed.modulizer.universal.provider.ModuleProvider;
+import team.unnamed.modulizer.universal.type.TypeReference;
+import team.unnamed.modulizer.universal.util.Validate;
 
 import java.util.Optional;
 
 public class SimpleModuleRepository<E extends Enum<E>> implements ModuleRepository<E> {
 
-    private final ModuleBinder<E> binder;
+    private final InternalModuleBinder<E> binder;
     private final ModuleFormat moduleFormat;
 
     private final ModuleLoader<E> loader;
@@ -24,7 +28,13 @@ public class SimpleModuleRepository<E extends Enum<E>> implements ModuleReposito
                                   Enum<E> currentType,
                                   String className,
                                   String packageName) {
-        this.binder = binder;
+        if (binder == null) {
+            throw new NullPointerException("Binder can't be null");
+        }
+
+        Validate.checkState(binder instanceof InternalModuleBinder, "Binder isn't an instance of InternalModuleBinder");
+
+        this.binder = (InternalModuleBinder<E>) binder;
         this.moduleFormat = moduleFormat;
         this.modulePath = modulePath;
         this.loader = new SimpleModuleLoader<>(currentType);
@@ -43,6 +53,11 @@ public class SimpleModuleRepository<E extends Enum<E>> implements ModuleReposito
         }
 
         return moduleOptional.get();
+    }
+
+    @Override
+    public <T> ModuleProvider<T, E> getProvider(TypeReference<T> abstractType) {
+        return binder.getProvider(abstractType);
     }
 
 }

@@ -2,7 +2,6 @@ package team.unnamed.modulizer.universal.loader;
 
 import team.unnamed.modulizer.universal.SimpleModule;
 import team.unnamed.modulizer.universal.bind.ModuleBinder;
-import team.unnamed.modulizer.universal.exception.ModuleCastException;
 import team.unnamed.modulizer.universal.exception.ModuleLoadException;
 import team.unnamed.modulizer.universal.internal.repository.ModuleFormat;
 
@@ -23,23 +22,17 @@ public class SimpleModuleLoader<E extends Enum<E>> implements ModuleLoader<E> {
     @SuppressWarnings("unchecked")
     @Override
     public void loadCurrentModule(ModuleBinder<E> binder, String modulePath, ModuleFormat moduleFormat, String className, String packageName) {
-        className = className.replace(moduleFormat.getIdentifierPlaceholder(), currentType.name());
+        String identifierPlaceholder = moduleFormat.getIdentifierPlaceholder();
+
+        className = className.replace(identifierPlaceholder, currentType.name());
+        packageName = packageName.replace(identifierPlaceholder, currentType.name());
 
         try {
-            Class<?> clazz = Class.forName(
+            Class<? extends SimpleModule<E>> clazz = (Class<? extends SimpleModule<E>>) Class.forName(
                     modulePath
-                            .replace(moduleFormat.getIdentifierPlaceholder(), currentType.name())
                             .replace(moduleFormat.getClassNamePlaceholder(), className)
                             .replace(moduleFormat.getPackagePlaceholder(), packageName)
             );
-
-            if (clazz == null) {
-                throw new IllegalArgumentException("Couldn't find any module for " + currentType.name() + ".");
-            }
-
-            if (!clazz.isAssignableFrom(SimpleModule.class)) {
-                throw new ModuleCastException("Class " + clazz.getName() + " isn't assignable from SimpleModule.");
-            }
 
             Constructor<?> defaultConstructor = clazz.getConstructor();
 
