@@ -10,16 +10,15 @@ public final class Validate {
      * Checks if the provided object is null,
      * if it's null, the method results in a
      * {@link NullPointerException} being thrown.
-     * @param object The checked object
-     * @param <T> The type of the object
-     * @param name The name of the checked object,
-     *             used to the message in the
-     *             thrown exception.
+     *
+     * @param object    The checked object
+     * @param <T>       The type of the object
+     * @param message   The message to send at exception.
      * @return The object, if not null
      */
-    public static <T> T checkNotNull(T object, String name) {
+    public static <T> T checkNotNull(T object, String message) {
         if (object == null) {
-            throw new NullPointerException(name);
+            throw new NullPointerException("[unnamed-modulizer] " + message);
         }
 
         return object;
@@ -27,7 +26,7 @@ public final class Validate {
 
     public static void checkState(boolean expression, String message) {
         if (!expression) {
-            throw new IllegalStateException(message);
+            throw new IllegalStateException("[unnamed-modulizer] " + message);
         }
     }
 

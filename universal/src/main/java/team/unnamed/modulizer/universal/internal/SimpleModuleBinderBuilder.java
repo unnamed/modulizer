@@ -36,28 +36,9 @@ public class SimpleModuleBinderBuilder<T, E extends Enum<E>> implements ModuleBi
         return this;
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public ModuleBinderBuilder<E> withDefaultConstructor() {
-        try {
-            key.addConstructor(DEFAULT_NAME, (Constructor<T>) key.getImplementation().getConstructor());
-        } catch (NoSuchMethodException e) {
-            e.printStackTrace();
-        }
-
-        return this;
-    }
-
     @Override
     public Qualified<E> withIdentifier(String identifier) {
         key.setIdentifier(identifier);
-
-        return this;
-    }
-
-    @Override
-    public Qualified<E> defaultIdentifier() {
-        key.setIdentifier(DEFAULT_NAME);
 
         return this;
     }
