@@ -50,6 +50,16 @@ public interface ModuleProvider<T, E extends Enum<E>> {
     T getInstance(E enumType, String implementationIdentifier, String constructorIdentifier, Object... values);
 
     /**
+     * Gets an instance of the implementation with the default identifiers.
+     *
+     * @param enumType The enum identifier of the implementation.
+     * @return An nullable instance of the abstraction with the corresponding implementation.
+     */
+    default T getInstance(E enumType) {
+        return getInstance(enumType, null, null);
+    }
+
+    /**
      * @param key The {@linkplain Key} of the implementation to do the register.
      */
     void registerVersion(Key<T, E> key);
