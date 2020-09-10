@@ -1,7 +1,8 @@
 package team.unnamed.modulizer.bukkit;
 
 import org.bukkit.Bukkit;
-import team.unnamed.modulizer.universal.util.ValidateUtil;
+
+import java.util.List;
 
 public enum MinecraftVersion {
 
@@ -25,12 +26,16 @@ public enum MinecraftVersion {
 
     ;
 
-    public static MinecraftVersion getVersion() {
+    public static MinecraftVersion getVersion(List<MinecraftVersion> possibleVersions) {
         MinecraftVersion minecraftVersion = valueOf(
-                Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
+                "v" + Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
         );
 
-        return ValidateUtil.checkNotNull(minecraftVersion, "Your server version hasn't supported!");
+        if (!possibleVersions.contains(minecraftVersion)) {
+            throw new IllegalArgumentException("Your server version hasn't supported!");
+        }
+
+        return minecraftVersion;
     }
 
 }
