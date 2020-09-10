@@ -9,7 +9,7 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <artifactId>modulizer-example-v1_8_R3</artifactId>
+    <artifactId>v1_8_R3</artifactId>
 
     <dependencies>
         <dependency>
@@ -20,7 +20,7 @@
         </dependency>
         <dependency>
             <groupId>team.unnamed.modulizer</groupId>
-            <artifactId>modulizer-example-abstraction</artifactId>
+            <artifactId>abstraction</artifactId>
             <version>0.0.1-SNAPSHOT</version>
             <scope>provided</scope>
         </dependency>

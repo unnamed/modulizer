@@ -7,7 +7,7 @@
     <groupId>team.unnamed.modulizer</groupId>
     <artifactId>modulizer-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1-SNAPSHOT</version>
+    <version>0.0.1</version>
 
     <build>
         <plugins>
@@ -41,5 +41,10 @@
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
     </repositories>
+
+    <properties>
+        <universal.version>0.0.1</universal.version>
+        <bukkit.version>0.0.1</bukkit.version>
+    </properties>
 
 </project>

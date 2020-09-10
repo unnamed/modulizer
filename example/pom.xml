@@ -5,12 +5,13 @@
     <parent>
         <artifactId>modulizer-parent</artifactId>
         <groupId>team.unnamed.modulizer</groupId>
-        <version>0.0.1-SNAPSHOT</version>
+        <version>0.0.1</version>
     </parent>
 
     <modelVersion>4.0.0</modelVersion>
 
     <artifactId>modulizer-example</artifactId>
+    <version>0.0.1-SNAPSHOT</version>
     <packaging>pom</packaging>
 
     <modules>
@@ -45,7 +46,7 @@
         <dependency>
             <groupId>team.unnamed.modulizer</groupId>
             <artifactId>modulizer-bukkit</artifactId>
-            <version>0.0.1-SNAPSHOT</version>
+            <version>${bukkit.version}</version>
             <scope>compile</scope>
         </dependency>
     </dependencies>
