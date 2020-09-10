@@ -22,7 +22,7 @@ You only need to copy and paste this at your pom.xml, and that will be done!
 </dependency>
 ````
 
-If you want to use de adaption to Bukkit you must use this:
+If you want to use de adaption to Bukkit you only need to use this:
 ````xml
 <dependency>
     <groupId>team.unnamed.modulizer</groupId>
