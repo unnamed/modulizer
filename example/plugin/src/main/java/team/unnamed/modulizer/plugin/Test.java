@@ -5,10 +5,14 @@ import team.unnamed.modulizer.bukkit.MinecraftVersion;
 import team.unnamed.modulizer.bukkit.bind.VersionModuleBinder;
 import team.unnamed.modulizer.universal.internal.repository.ModuleRepository;
 
+import java.util.Arrays;
+
 public class Test {
 
     public static void main(String[] args) {
-        MinecraftVersion minecraftVersion = MinecraftVersion.getVersion();
+        MinecraftVersion minecraftVersion = MinecraftVersion.getVersion(
+                Arrays.asList(MinecraftVersion.v1_8_R3, MinecraftVersion.v1_9_R2)
+        );
 
         VersionModuleBinder binder = new VersionModuleBinder();
 
