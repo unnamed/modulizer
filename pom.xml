@@ -7,7 +7,7 @@
     <groupId>team.unnamed.modulizer</groupId>
     <artifactId>modulizer-parent</artifactId>
     <packaging>pom</packaging>
-    <version>0.0.1</version>
+    <version>0.0.2</version>
 
     <build>
         <plugins>
@@ -43,8 +43,8 @@
     </repositories>
 
     <properties>
-        <universal.version>0.0.1</universal.version>
-        <bukkit.version>0.0.1</bukkit.version>
+        <universal.version>0.0.2</universal.version>
+        <bukkit.version>0.0.2</bukkit.version>
     </properties>
 
 </project>
