@@ -1,8 +1,8 @@
 package team.unnamed.modulizer.universal.util;
 
-public final class Validate {
+public final class ValidateUtil {
 
-    private Validate() {
+    private ValidateUtil() {
         throw new UnsupportedOperationException();
     }
 

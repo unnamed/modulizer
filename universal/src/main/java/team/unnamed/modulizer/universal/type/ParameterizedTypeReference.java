@@ -14,12 +14,12 @@ public class ParameterizedTypeReference implements ParameterizedType {
     }
 
     ParameterizedTypeReference(Type ownerType, Type rawType, Type... typeArguments) {
-        this.ownerType = ownerType == null ? null : Types.wrap(ownerType);
-        this.rawType = Types.wrap(rawType);
+        this.ownerType = ownerType == null ? null : TypesUtil.wrap(ownerType);
+        this.rawType = TypesUtil.wrap(rawType);
         this.typeArguments = typeArguments;
 
         for (int i = 0, length = this.typeArguments.length; i < length; i++) {
-            this.typeArguments[i] = Types.wrap(this.typeArguments[i]);
+            this.typeArguments[i] = TypesUtil.wrap(this.typeArguments[i]);
         }
     }
 

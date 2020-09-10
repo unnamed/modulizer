@@ -18,14 +18,14 @@ public abstract class TypeReference<T> {
 
         ParameterizedType parameterizedType = (ParameterizedType) superClass;
 
-        type = Types.wrap(parameterizedType.getActualTypeArguments()[0]);
-        rawType = (Class<? super T>) Types.getRawType(type);
+        type = TypesUtil.wrap(parameterizedType.getActualTypeArguments()[0]);
+        rawType = (Class<? super T>) TypesUtil.getRawType(type);
     }
 
     @SuppressWarnings("unchecked")
     public TypeReference(Type type) {
-        this.type = Types.wrap(type);
-        rawType = (Class<? super T>) Types.getRawType(this.type);
+        this.type = TypesUtil.wrap(type);
+        rawType = (Class<? super T>) TypesUtil.getRawType(this.type);
     }
 
     public final Class<? super T> getRawType() {
@@ -51,12 +51,12 @@ public abstract class TypeReference<T> {
         }
 
         TypeReference<?> other = (TypeReference<?>) o;
-        return Types.typeEquals(type, other.type);
+        return TypesUtil.typeEquals(type, other.type);
     }
 
     @Override
     public final String toString() {
-        return Types.asString(type);
+        return TypesUtil.asString(type);
     }
 
     public static <T> TypeReference<T> of(Type type) {

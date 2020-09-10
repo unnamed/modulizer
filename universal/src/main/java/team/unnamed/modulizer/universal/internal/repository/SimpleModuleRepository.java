@@ -7,7 +7,7 @@ import team.unnamed.modulizer.universal.loader.ModuleLoader;
 import team.unnamed.modulizer.universal.loader.SimpleModuleLoader;
 import team.unnamed.modulizer.universal.provider.ModuleProvider;
 import team.unnamed.modulizer.universal.type.TypeReference;
-import team.unnamed.modulizer.universal.util.Validate;
+import team.unnamed.modulizer.universal.util.ValidateUtil;
 
 import java.util.Optional;
 
@@ -28,11 +28,10 @@ public class SimpleModuleRepository<E extends Enum<E>> implements ModuleReposito
                                   Enum<E> currentType,
                                   String className,
                                   String packageName) {
-        if (binder == null) {
-            throw new NullPointerException("Binder can't be null");
-        }
-
-        Validate.checkState(binder instanceof InternalModuleBinder, "Binder isn't an instance of InternalModuleBinder");
+        ValidateUtil.checkState(
+                binder instanceof InternalModuleBinder,
+                "Binder isn't an instance of InternalModuleBinder"
+        );
 
         this.binder = (InternalModuleBinder<E>) binder;
         this.moduleFormat = moduleFormat;

@@ -1,6 +1,6 @@
 package team.unnamed.modulizer.universal.internal.repository;
 
-import team.unnamed.modulizer.universal.util.Validate;
+import team.unnamed.modulizer.universal.util.ValidateUtil;
 
 public final class ModuleFormatBuilder {
 
@@ -15,19 +15,19 @@ public final class ModuleFormatBuilder {
     }
 
     public ModuleFormatBuilder setPackagePlaceholder(String packagePlaceholder) {
-        this.packagePlaceholder = Validate.checkNotNull(packagePlaceholder, "The package placeholder can't be null");
+        this.packagePlaceholder = ValidateUtil.checkNotNull(packagePlaceholder, "The package placeholder can't be null");
 
         return this;
     }
 
     public ModuleFormatBuilder setClassNamePlaceholder(String classNamePlaceholder) {
-        this.classNamePlaceholder = Validate.checkNotNull(classNamePlaceholder, "The class name placeholder can't be null");
+        this.classNamePlaceholder = ValidateUtil.checkNotNull(classNamePlaceholder, "The class name placeholder can't be null");
 
         return this;
     }
 
     public ModuleFormatBuilder setIdentifierPlaceholder(String identifierPlaceholder) {
-        this.identifierPlaceholder = Validate.checkNotNull(identifierPlaceholder, "The identifier placeholder can't be null");
+        this.identifierPlaceholder = ValidateUtil.checkNotNull(identifierPlaceholder, "The identifier placeholder can't be null");
 
         return this;
     }

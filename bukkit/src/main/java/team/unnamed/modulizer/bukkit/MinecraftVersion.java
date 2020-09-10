@@ -1,7 +1,7 @@
 package team.unnamed.modulizer.bukkit;
 
 import org.bukkit.Bukkit;
-import team.unnamed.modulizer.universal.util.Validate;
+import team.unnamed.modulizer.universal.util.ValidateUtil;
 
 public enum MinecraftVersion {
 
@@ -30,7 +30,7 @@ public enum MinecraftVersion {
                 Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
         );
 
-        return Validate.checkNotNull(minecraftVersion, "Your server version hasn't supported!");
+        return ValidateUtil.checkNotNull(minecraftVersion, "Your server version hasn't supported!");
     }
 
 }

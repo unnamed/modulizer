@@ -4,7 +4,7 @@ package team.unnamed.modulizer.universal.provider;
 import team.unnamed.modulizer.universal.bind.ModuleBinderBuilder;
 import team.unnamed.modulizer.universal.internal.Key;
 import team.unnamed.modulizer.universal.type.TypeReference;
-import team.unnamed.modulizer.universal.util.Validate;
+import team.unnamed.modulizer.universal.util.ValidateUtil;
 
 import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
@@ -30,7 +30,7 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
 
     @Override
     public Key<T, E> getKey(String implementationIdentifier, Enum<E> enumType) {
-        Key<T, E> implementation = implementations.get(Validate.checkNotNull(enumType, "The enum identifier can't be null"));
+        Key<T, E> implementation = implementations.get(ValidateUtil.checkNotNull(enumType, "The enum identifier can't be null"));
 
         if (implementation == null) {
             throw new IllegalArgumentException(
@@ -53,7 +53,7 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
 
     @Override
     public T getInstance(E enumType, String implementationIdentifier, String constructorIdentifier, Object... values) {
-        Key<T, E> implementation = getKey(implementationIdentifier, Validate.checkNotNull(enumType, "The enum identifier can't be null"));
+        Key<T, E> implementation = getKey(implementationIdentifier, ValidateUtil.checkNotNull(enumType, "The enum identifier can't be null"));
 
         if (constructorIdentifier == null) {
             constructorIdentifier = ModuleBinderBuilder.DEFAULT_NAME;
@@ -71,14 +71,14 @@ public class SimpleModuleProvider<T, E extends Enum<E>> implements ModuleProvide
             return constructorOptional.get().newInstance(values);
         } catch (InstantiationException | IllegalAccessException | InvocationTargetException e) {
             throw new RuntimeException(
-                    "An error has occurred while initializing an instance of " + abstractionType.getRawType() + ".", e
+                    "An error has occurred while initializing an instance of " + abstractionType.getRawType() + ".", e.getCause()
             );
         }
     }
 
     @Override
     public void registerVersion(Key<T, E> key) {
-        implementations.putIfAbsent(key.getEnumType(), Validate.checkNotNull(key, "The key to register can't be null"));
+        implementations.putIfAbsent(key.getEnumType(), ValidateUtil.checkNotNull(key, "The key to register can't be null"));
     }
 
 }

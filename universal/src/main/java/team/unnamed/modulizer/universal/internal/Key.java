@@ -85,7 +85,7 @@ public final class Key<T, E extends Enum<E>> {
      *
      * @param enumType The new enum identifier.
      */
-    void setEnumType(Enum<E> enumType) {
+    protected void setEnumType(Enum<E> enumType) {
         this.enumType = enumType;
     }
 

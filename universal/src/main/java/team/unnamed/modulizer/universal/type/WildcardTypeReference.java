@@ -14,14 +14,14 @@ public class WildcardTypeReference implements WildcardType {
 
     WildcardTypeReference(Type[] upperBounds, Type[] lowerBounds) {
         if (lowerBounds.length == 1) {
-            this.lowerBound = Types.wrap(lowerBounds[0]);
+            this.lowerBound = TypesUtil.wrap(lowerBounds[0]);
             this.upperBound = Object.class;
 
             return;
         }
 
         this.lowerBound = null;
-        this.upperBound = Types.wrap(upperBounds[0]);
+        this.upperBound = TypesUtil.wrap(upperBounds[0]);
     }
 
     @Override
@@ -32,7 +32,7 @@ public class WildcardTypeReference implements WildcardType {
     @Override
     public Type[] getLowerBounds() {
         if (lowerBound == null) {
-            return Types.EMPTY_TYPE_ARRAY;
+            return TypesUtil.EMPTY_TYPE_ARRAY;
         }
 
         return new Type[] { lowerBound };

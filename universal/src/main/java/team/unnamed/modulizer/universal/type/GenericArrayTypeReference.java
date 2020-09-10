@@ -9,7 +9,7 @@ class GenericArrayTypeReference implements GenericArrayType {
     private final Type componentType;
 
     GenericArrayTypeReference(Type componentType) {
-        this.componentType = Types.wrap(componentType);
+        this.componentType = TypesUtil.wrap(componentType);
     }
 
     public Type getGenericComponentType() {
@@ -25,7 +25,7 @@ class GenericArrayTypeReference implements GenericArrayType {
             return false;
         }
         GenericArrayType other = (GenericArrayType) o;
-        return Types.typeEquals(this, other);
+        return TypesUtil.typeEquals(this, other);
     }
 
     @Override
@@ -35,7 +35,7 @@ class GenericArrayTypeReference implements GenericArrayType {
 
     @Override
     public String toString() {
-        return Types.asString(componentType) + "[]";
+        return TypesUtil.asString(componentType) + "[]";
     }
 
 }

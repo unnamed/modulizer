@@ -4,7 +4,7 @@ import java.lang.reflect.*;
 import java.util.Arrays;
 import java.util.Objects;
 
-public final class Types {
+public final class TypesUtil {
 
     public static final Type[] EMPTY_TYPE_ARRAY = new Type[] {};
 
@@ -77,7 +77,7 @@ public final class Types {
 
     public static boolean typeEquals(Type a, Type b) {
 
-        if (a == b) {
+        if (a.equals(b)) {
             return true;
         }
 

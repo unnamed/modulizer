@@ -24,14 +24,14 @@ public class SimpleModuleLoader<E extends Enum<E>> implements ModuleLoader<E> {
     public void loadCurrentModule(ModuleBinder<E> binder, String modulePath, ModuleFormat moduleFormat, String className, String packageName) {
         String identifierPlaceholder = moduleFormat.getIdentifierPlaceholder();
 
-        className = className.replace(identifierPlaceholder, currentType.name());
-        packageName = packageName.replace(identifierPlaceholder, currentType.name());
+        String replacedClassName = className.replace(identifierPlaceholder, currentType.name());
+        String replacedPackageName = packageName.replace(identifierPlaceholder, currentType.name());
 
         try {
             Class<? extends SimpleModule<E>> clazz = (Class<? extends SimpleModule<E>>) Class.forName(
                     modulePath
-                            .replace(moduleFormat.getClassNamePlaceholder(), className)
-                            .replace(moduleFormat.getPackagePlaceholder(), packageName)
+                            .replace(moduleFormat.getClassNamePlaceholder(), replacedClassName)
+                            .replace(moduleFormat.getPackagePlaceholder(), replacedPackageName)
             );
 
             Constructor<?> defaultConstructor = clazz.getConstructor();
