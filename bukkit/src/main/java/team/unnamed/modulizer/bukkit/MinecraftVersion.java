@@ -1,9 +1,14 @@
 package team.unnamed.modulizer.bukkit;
 
 import org.bukkit.Bukkit;
+import team.unnamed.modulizer.universal.util.Validate;
 
 public enum MinecraftVersion {
 
+    v1_7_R1,
+    v1_7_R2,
+    v1_7_R3,
+    v1_7_R4,
     v1_8_R1,
     v1_8_R2,
     v1_8_R3,
@@ -21,9 +26,11 @@ public enum MinecraftVersion {
     ;
 
     public static MinecraftVersion getVersion() {
-        return MinecraftVersion.valueOf(
+        MinecraftVersion minecraftVersion = valueOf(
                 Bukkit.getServer().getClass().getPackage().getName().split("\\.")[3].substring(1)
         );
+
+        return Validate.checkNotNull(minecraftVersion, "Your server version hasn't supported!");
     }
 
 }
