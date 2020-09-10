@@ -16,6 +16,16 @@ You only need to copy and paste this at your pom.xml, and that will be done!
 ````xml
 <dependency>
     <groupId>team.unnamed.modulizer</groupId>
+    <artifactId>modulizer-universal</artifactId>
+    <version>0.0.1</version>
+    <scope>compile</scope>
+</dependency>
+````
+
+If you want to use de adaption to Bukkit you must use this:
+````xml
+<dependency>
+    <groupId>team.unnamed.modulizer</groupId>
     <artifactId>modulizer-bukkit</artifactId>
     <version>0.0.1</version>
     <scope>compile</scope>
