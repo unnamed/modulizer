@@ -17,12 +17,17 @@ public class SimpleModuleBinder<E extends Enum<E>> implements InternalModuleBind
         providers = new LinkedHashMap<>();
     }
 
+    @SuppressWarnings("unchecked")
     @Override
     public <T> void set(TypeReference<T> abstractionType, Key<T, E> key) {
         ModuleProvider<T, E> versionProvider = new SimpleModuleProvider<>(abstractionType);
 
+        if (providers.containsKey(abstractionType)) {
+            versionProvider = (ModuleProvider<T, E>) providers.get(abstractionType);
+        }
+
         versionProvider.registerVersion(key);
-        providers.putIfAbsent(abstractionType, versionProvider);
+        providers.put(abstractionType, versionProvider);
     }
 
     @SuppressWarnings("unchecked")
