@@ -11,8 +11,15 @@ public class VersionModule_v1_8_R3 implements VersionModule {
     public void configure(ModuleBinder<MinecraftVersion> binder) {
         binder.bind(TitleMessenger.class)
                 .to(TitleMessenger1_8_R3.class)
-                .withDefaultConstructor()
+                .withConstructor("default", String.class)
+                .withConstructor("default-2", String.class, int.class)
                 .defaultIdentifier()
+                .withType(MinecraftVersion.v1_8_R3);
+
+        binder.bind(TitleMessenger.class)
+                .to(Test2.class)
+                .withDefaultConstructor()
+                .withIdentifier("asd")
                 .withType(MinecraftVersion.v1_8_R3);
     }
 
