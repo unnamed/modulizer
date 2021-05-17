@@ -17,7 +17,7 @@ You only need to copy and paste this at your pom.xml, and that will be done!
 <dependency>
     <groupId>team.unnamed.modulizer</groupId>
     <artifactId>modulizer-universal</artifactId>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <scope>compile</scope>
 </dependency>
 ````
@@ -27,7 +27,7 @@ If you want to use de adaption to Bukkit you only need to use this:
 <dependency>
     <groupId>team.unnamed.modulizer</groupId>
     <artifactId>modulizer-bukkit</artifactId>
-    <version>0.1.0</version>
+    <version>1.0.0</version>
     <scope>compile</scope>
 </dependency>
 ````

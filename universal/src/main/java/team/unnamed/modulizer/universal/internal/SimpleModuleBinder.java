@@ -9,42 +9,42 @@ import team.unnamed.modulizer.universal.type.TypeReference;
 import java.util.LinkedHashMap;
 import java.util.Map;
 
-public class SimpleModuleBinder<E extends Enum<E>> implements InternalModuleBinder<E> {
+public class SimpleModuleBinder implements InternalModuleBinder {
 
-    private final Map<TypeReference<?>, ModuleProvider<?, ? extends Enum<?>>> providers;
+  private final Map<TypeReference<?>, ModuleProvider<?>> providers;
 
-    public SimpleModuleBinder() {
-        providers = new LinkedHashMap<>();
+  public SimpleModuleBinder() {
+    providers = new LinkedHashMap<>();
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> void set(TypeReference<T> abstractionType, Key<T> key) {
+    ModuleProvider<T> versionProvider = new SimpleModuleProvider<>(abstractionType);
+
+    if (providers.containsKey(abstractionType)) {
+      versionProvider = (ModuleProvider<T>) providers.get(abstractionType);
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> void set(TypeReference<T> abstractionType, Key<T, E> key) {
-        ModuleProvider<T, E> versionProvider = new SimpleModuleProvider<>(abstractionType);
+    versionProvider.registerVersion(key);
+    providers.put(abstractionType, versionProvider);
+  }
 
-        if (providers.containsKey(abstractionType)) {
-            versionProvider = (ModuleProvider<T, E>) providers.get(abstractionType);
-        }
+  @SuppressWarnings("unchecked")
+  @Override
+  public <T> ModuleProvider<T> getProvider(TypeReference<T> abstractType) {
+    ModuleProvider<T> moduleProvider = (ModuleProvider<T>) providers.get(abstractType);
 
-        versionProvider.registerVersion(key);
-        providers.put(abstractionType, versionProvider);
+    if (moduleProvider == null) {
+      throw new ModuleLoadException("Couldn't find any module for " + abstractType + ".");
     }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public <T> ModuleProvider<T, E> getProvider(TypeReference<T> abstractType) {
-        ModuleProvider<T, E> moduleProvider = (ModuleProvider<T, E>) providers.get(abstractType);
+    return moduleProvider;
+  }
 
-        if (moduleProvider == null) {
-            throw new ModuleLoadException("Couldn't find any module for " + abstractType + ".");
-        }
-
-        return moduleProvider;
-    }
-
-    @Override
-    public <T> ModuleBinderBuilder.Linkable<T, E> bind(TypeReference<T> abstractionType) {
-        return new SimpleModuleBinderBuilder<>(this, abstractionType);
-    }
+  @Override
+  public <T> ModuleBinderBuilder.Linkable<T> bind(TypeReference<T> abstractionType) {
+    return new SimpleModuleBinderBuilder<>(this, abstractionType);
+  }
 
 }

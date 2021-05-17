@@ -1,5 +1,6 @@
 package team.unnamed.modulizer.universal.loader;
 
+import team.unnamed.modulizer.universal.MinecraftVersion;
 import team.unnamed.modulizer.universal.SimpleModule;
 import team.unnamed.modulizer.universal.bind.ModuleBinder;
 import team.unnamed.modulizer.universal.exception.ModuleLoadException;
@@ -9,52 +10,63 @@ import java.lang.reflect.Constructor;
 import java.lang.reflect.InvocationTargetException;
 import java.util.Optional;
 
-public class SimpleModuleLoader<E extends Enum<E>> implements ModuleLoader<E> {
+public class SimpleModuleLoader implements ModuleLoader {
 
-    private SimpleModule<E> currentModule;
+  private SimpleModule currentModule;
 
-    private final Enum<E> currentType;
+  private final MinecraftVersion version;
 
-    public SimpleModuleLoader(Enum<E> currentType) {
-        this.currentType = currentType;
+  public SimpleModuleLoader(MinecraftVersion version) {
+    this.version = version;
+  }
+
+  @SuppressWarnings("unchecked")
+  @Override
+  public void loadCurrentModule(ModuleBinder binder,
+                                String modulePath,
+                                ModuleFormat moduleFormat,
+                                String className,
+                                String packageName) {
+    String identifierPlaceholder = moduleFormat.getIdentifierPlaceholder();
+
+    String replacedClassName = className.replace(identifierPlaceholder, version.name());
+    String replacedPackageName = packageName.replace(identifierPlaceholder, version.name());
+
+    try {
+      Class<? extends SimpleModule> clazz = (Class<? extends SimpleModule>) Class.forName(
+              modulePath
+                      .replace(moduleFormat.getClassNamePlaceholder(), replacedClassName)
+                      .replace(moduleFormat.getPackagePlaceholder(), replacedPackageName)
+      );
+
+      Constructor<?> defaultConstructor = clazz.getConstructor();
+
+      boolean accessible = defaultConstructor.isAccessible();
+
+      defaultConstructor.setAccessible(true);
+
+      SimpleModule module = (SimpleModule) defaultConstructor.newInstance();
+
+      defaultConstructor.setAccessible(accessible);
+
+      module.configure(binder);
+
+      currentModule = module;
+    } catch (ClassNotFoundException
+            | IllegalAccessException
+            | InstantiationException
+            | NoSuchMethodException
+            | InvocationTargetException e) {
+      throw new ModuleLoadException(
+              "An error has occurred while getting" +
+                      " the corresponding module to " + version.name(), e
+      );
     }
+  }
 
-    @SuppressWarnings("unchecked")
-    @Override
-    public void loadCurrentModule(ModuleBinder<E> binder, String modulePath, ModuleFormat moduleFormat, String className, String packageName) {
-        String identifierPlaceholder = moduleFormat.getIdentifierPlaceholder();
-
-        String replacedClassName = className.replace(identifierPlaceholder, currentType.name());
-        String replacedPackageName = packageName.replace(identifierPlaceholder, currentType.name());
-
-        try {
-            Class<? extends SimpleModule<E>> clazz = (Class<? extends SimpleModule<E>>) Class.forName(
-                    modulePath
-                            .replace(moduleFormat.getClassNamePlaceholder(), replacedClassName)
-                            .replace(moduleFormat.getPackagePlaceholder(), replacedPackageName)
-            );
-
-            Constructor<?> defaultConstructor = clazz.getConstructor();
-
-            boolean accessible = defaultConstructor.isAccessible();
-
-            defaultConstructor.setAccessible(true);
-
-            SimpleModule<E> module = (SimpleModule<E>) defaultConstructor.newInstance();
-
-            defaultConstructor.setAccessible(accessible);
-
-            module.configure(binder);
-
-            currentModule = module;
-        } catch (ClassNotFoundException | IllegalAccessException | InstantiationException | NoSuchMethodException | InvocationTargetException e) {
-            throw new ModuleLoadException("An error has occurred while getting the corresponding module to " + currentType.name(), e);
-        }
-    }
-
-    @Override
-    public Optional<SimpleModule<E>> getCurrentModule() {
-        return Optional.ofNullable(currentModule);
-    }
+  @Override
+  public Optional<SimpleModule> getCurrentModule() {
+    return Optional.ofNullable(currentModule);
+  }
 
 }

@@ -6,36 +6,36 @@ import java.util.Objects;
 
 class GenericArrayTypeReference implements GenericArrayType {
 
-    private final Type componentType;
+  private final Type componentType;
 
-    GenericArrayTypeReference(Type componentType) {
-        this.componentType = TypesUtil.wrap(componentType);
-    }
+  GenericArrayTypeReference(Type componentType) {
+    this.componentType = TypesUtil.wrap(componentType);
+  }
 
-    public Type getGenericComponentType() {
-        return componentType;
-    }
+  public Type getGenericComponentType() {
+    return componentType;
+  }
 
-    @Override
-    public boolean equals(Object o) {
-        if (o == this) {
-            return true;
-        }
-        if (!(o instanceof GenericArrayType)) {
-            return false;
-        }
-        GenericArrayType other = (GenericArrayType) o;
-        return TypesUtil.typeEquals(this, other);
+  @Override
+  public boolean equals(Object o) {
+    if (o == this) {
+      return true;
     }
+    if (!(o instanceof GenericArrayType)) {
+      return false;
+    }
+    GenericArrayType other = (GenericArrayType) o;
+    return TypesUtil.typeEquals(this, other);
+  }
 
-    @Override
-    public int hashCode() {
-        return Objects.hashCode(componentType);
-    }
+  @Override
+  public int hashCode() {
+    return Objects.hashCode(componentType);
+  }
 
-    @Override
-    public String toString() {
-        return TypesUtil.asString(componentType) + "[]";
-    }
+  @Override
+  public String toString() {
+    return TypesUtil.asString(componentType) + "[]";
+  }
 
 }
